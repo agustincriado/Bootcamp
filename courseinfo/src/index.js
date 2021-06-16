@@ -2,13 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { useState } from 'react'
 
-
-
 const App = () => {
   const [contador, setContador] = useState(0)
 
   const handleAugment = () => {
-    return setContador(contador + 1)
+    return contador < 10 ? setContador(contador + 1) : 'disabled = true'
   }
 
   const handleDecrease = () => {
@@ -19,6 +17,7 @@ const App = () => {
     return setContador(0)
   }
 
+
   const isEven = (contador % 2) === 0
   const message = isEven ? <h1>Even</h1> : <h4>Odd</h4>
   return (
@@ -26,7 +25,7 @@ const App = () => {
       <h1>{contador}</h1>
       <button onClick={handleAugment}>Aumentar</button>
       <button onClick={handleReset}>Reset</button>
-      <button onClick={handleDecrease}>Decrementar</button>
+      <button onClick={handleDecrease} >Decrementar</button>
       <br/>
       {message}
     </div>
