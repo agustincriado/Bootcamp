@@ -10,7 +10,7 @@ const App = () => {
   }
 
   const handleDecrease = () => {
-    return contador > 0 ? setContador(contador - 1) : 'disabled = true'
+    return contador > 0 ? setContador(contador - 1) : "disabled = true"
   }
 
   const handleReset = () => {
@@ -23,9 +23,12 @@ const App = () => {
   return (
     <div>
       <h1>{contador}</h1>
-      <button onClick={handleAugment}>Aumentar</button>
+      { contador < 10 ?
+      <button onClick={handleAugment} >Aumentar</button> : <button disabled >Aumentar</button>}
       <button onClick={handleReset}>Reset</button>
-      <button onClick={handleDecrease} >Decrementar</button>
+      {contador !== 0 ?
+      <button onClick={handleDecrease} >Decrementar</button> : <button disabled >Decrementar</button> 
+      }
       <br/>
       {message}
     </div>
