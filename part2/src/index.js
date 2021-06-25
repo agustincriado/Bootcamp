@@ -22,6 +22,7 @@ const App = () => {
   const message = isEven ? <h1>Even</h1> : <h4>Odd</h4>
   return (
     <div>
+      <h1>El contador tiene un maximo de 10 y un minimo de 0</h1>
       <h1>{contador}</h1>
       { contador < 10 ?
       <button onClick={handleAugment} >Aumentar</button> : <button disabled >Aumentar</button>}
