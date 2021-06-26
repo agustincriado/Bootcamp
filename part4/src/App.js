@@ -30,12 +30,12 @@ export default function App(props) {
     <div>
       <h1>Notes</h1>
       <button onClick = { handleShowAll }>{showAll ? 'show only important' : 'show all'}</button>
-      <h3>{showAll ? 'This are all notes' : 'This are only important ones'}</h3>
+      <h3>{showAll ? 'These are all notes' : 'These are only important ones'}</h3>
       <ol>
         {
         notes
         .filter(note => {
-          if (showAll === true) return note;
+          if (showAll === true) return true;
           return note.important === true
           })
         .map(note => <Notitas key={note.id} {...note} />
