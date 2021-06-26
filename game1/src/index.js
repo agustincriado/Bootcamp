@@ -9,7 +9,7 @@ const center = ["rojo", "verde" , "azul"];
 const right = ["rojo", "verde" , "azul"];
 
 ReactDOM.render(
-    <App left={left} center={center} right={right}/>,
+    <App left={left.sort(() =>{return 0.5 - Math.random()})} center={center.sort(() =>{return 0.5 - Math.random()})} right={right.sort(() => {return 0.5 - Math.random()})}/>,
   document.getElementById('root')
 );
 

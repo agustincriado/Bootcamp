@@ -3,19 +3,27 @@
 }
 .valores {
 display: flex;
-justify-content: space-between;
+justify-content: space-evenly;
 }
 
 .rojo {
   background-color: #ff0000;
+  border-radius: 5px;
 }
 
 .verde {
   background-color: #008000;
+  border-radius: 5px;
 }
 
 .azul {
   background-color: #0000ff;
+  border-radius: 5px;
+}
+
+.Botonera {
+  display: flex;
+  justify-content: space-evenly;
 }
 .App-logo {
   height: 40vmin;
