@@ -1,50 +1,48 @@
 import { Notitas } from './Notes.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getAllNotes, createNote } from './services/notes/services'
 
 
-export default function App(props) {
-  const [notes, setNotes] = useState(props.notes);
+export default function App() { 
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
-  const [showAll, setShowAll] = useState(true);
- 
+
+  useEffect(() => {
+    console.log('Render');
+    getAllNotes().then(notes => setNotes(notes))
+  }, [])
+
   const handleChange = (event) => {
     setNewNote(event.target.value)
   }
 
-  const handleClick = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const NewtoAdd = {
-      id: notes.length + 1,
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() < 0.5
-    }
-    setNotes([...notes, NewtoAdd]);
-    setNewNote("")
-  }
+      body: newNote,
+      title: new Date().toISOString(),
+      userId: 1
+    };
 
-  const handleShowAll = () => {
-    setShowAll(() => !showAll)
+    createNote(NewtoAdd)
+      .then((newNote) => {
+      setNotes((prevNotes) => prevNotes.concat(newNote))
+    })
+    setNewNote("")
   }
 
   return (
     <div>
       <h1>Notes</h1>
-      <button onClick = { handleShowAll }>{showAll ? 'show only important' : 'show all'}</button>
-      <h3>{showAll ? 'These are all notes' : 'These are only important ones'}</h3>
       <ol>
-        {
-        notes
-        .filter(note => {
-          if (showAll === true) return true;
-          return note.important === true
-          })
+        {notes
         .map(note => <Notitas key={note.id} {...note} />
         )}      
       </ol>
-      <div>
+      <form onSubmit={handleSubmit}>
         <input type='text' onChange={handleChange} value={newNote}/>
-        <input type='submit' value='Submit' onClick={handleClick}/>
-      </div>
+        <button>Crear Nota</button>
+      </form>
     </div>
   );
 }
