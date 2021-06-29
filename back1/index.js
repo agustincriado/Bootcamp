@@ -1,7 +1,15 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.json());
+app.use((request, response, next) => {
+	console.log(request.path);
+	console.log(request.method);
+	console.log('-------');
+	next();
+});
 
 let notes = [
 	{
@@ -39,7 +47,7 @@ app.get('/api/notes/:id', (request, response) => {
 	if (note) {
 		response.json(note);
 	} else {
-		response.status(404).end();
+		response.status(404).json({error:'No such note exist'});
 	}
 }); 
 
@@ -69,7 +77,13 @@ app.post('/api/notes', (request,response) => {
 	response.status(201).json(newNote);
 });
 
-const PORT = 3001;
+app.use((request, response) => {
+	response.status(404).json({
+		error: 'Not found'
+	});
+});
+
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });
